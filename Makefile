@@ -25,7 +25,7 @@ test: init-venv
 
 .PHONY: test-watch
 test-watch: init-venv
-	$(VENV_DIR)/bin/ptw
+	$(VENV_DIR)/bin/ptw -- --continue-on-collection-errors -v
 
 .PHONY: clean-venv
 clean-venv:
