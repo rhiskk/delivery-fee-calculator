@@ -27,6 +27,11 @@ test: init-venv
 test-watch: init-venv
 	$(VENV_DIR)/bin/ptw -- --continue-on-collection-errors -v
 
+
+test-coverage: init-venv
+	$(VENV_PYTHON) -m pytest --cov=app --cov-report=term-missing --cov-report=html
+
+
 .PHONY: clean-venv
 clean-venv:
 	rm -rf $(VENV_DIR)

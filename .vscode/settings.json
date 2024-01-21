@@ -1,3 +1,0 @@
-{
-  "mypy.dmypyExecutable": "${workspaceFolder}/.venv/bin/dmypy"
-}
