@@ -28,8 +28,19 @@ test-watch: init-venv
 	$(VENV_DIR)/bin/ptw -- --continue-on-collection-errors -v
 
 
+.PHONY: test-coverage
 test-coverage: init-venv
 	$(VENV_PYTHON) -m pytest --cov=app --cov-report=term-missing --cov-report=html
+
+
+.PHONY: lint
+lint: init-venv
+	$(VENV_PYTHON) -m ruff check app
+
+
+.PHONY: type-check
+type-check: init-venv
+	$(VENV_PYTHON) -m mypy app
 
 
 .PHONY: clean-venv
