@@ -6,6 +6,7 @@
 
 - Python 3.12
 - Docker
+- Docker Compose
 - Make
 
 ### Installing
