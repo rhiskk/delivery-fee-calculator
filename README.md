@@ -1,62 +1,43 @@
 # Delivery Fee Calculator API
 
-## Getting Started
-
 ### Prerequisites
 
-- Python 3.12
+- Make
 - Docker
 - Docker Compose
-- Make
+- Python 3.12 (for intellisense)
 
-### Installing
+### Intellisense
 
-1. Clone the repository:
+Run `make init-venv` to create a virtual environment and install the necessary Python packages. This step is primarily needed for setting up development tools like Pylance, which provide autocompletion, type checking, and other IntelliSense features in your IDE.
+This is not required to run or test the application.
 
-```
-git clone https://github.com/rhiskk/delivery-fee-calculator.git
-```
+The following make targets use `docker-compose` to run the application and commands in a Docker container:
 
-2. Navigate to the project directory:
+## Running the Application
 
-```
-cd delivery-fee-calculator
-```
+- Run `make run-dev` to start the application in development mode.
 
-3. Initialize the virtual environment and install the required packages:
+## Running the Tests
 
-```
-make init-venv
-```
+- Run `make test` to run the tests.
+- Run `make test-watch` to run the tests in watch mode.
+- Run `make test-coverage` to generate a test coverage report.
 
-### Running the Application
+## Linting and Type Checking
 
-To run the application, use the following command:
-make run
+- Run `make lint` to check the code for linting errors.
+- Run `make lint-fix` to automatically fix linting errors.
+- Run `make type-check` to check the code for type errors.
 
-The application will start running at `http://localhost:8000`.
+## OpenAPI Documentation
 
-### API Documentation
+On Unix systems, you can run `make docs` to open the openAPI documentation in your web browser.
 
-To view the API documentation, navigate to `http://localhost:8000/docs` while the application is running.
+Otherwise, you can open [`http://localhost:8000/docs`](http://localhost:8000/docs) in your web browser while the app is running.
 
-### Running the Tests
+## Cleaning Up
 
-To run the tests, use the following command:
-make test
+When you are done using the application, you should clean up the Docker environment:
 
-To run the tests and watch for changes, use the following command:
-make test-watch
-
-To run the tests with coverage, use the following command:
-make test-coverage
-
-### Type Checking
-
-To perform type checking on the code, use the following command:
-make type-check
-
-### Cleaning Up
-
-To remove the virtual environment and clean up the project, use the following command:
-make clean-venv
+- Run `make docker-clean` to remove the Docker image for the delivery fee calculator API.

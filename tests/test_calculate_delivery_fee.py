@@ -1,11 +1,12 @@
 import pytest
-from app.calculate_delivery_fee import calculate_delivery_fee
-from datetime import datetime
 
-MONDAY_1PM = datetime.fromisoformat("2024-01-15T13:00:00Z")
-FRIDAY_3PM = datetime.fromisoformat("2024-01-19T15:00:00Z")
-FRIDAY_6_45PM = datetime.fromisoformat("2024-01-19T18:45:00Z")
-FRIDAY_7PM = datetime.fromisoformat("2024-01-19T19:00:00Z")
+from app.calculate_delivery_fee import calculate_delivery_fee
+from app.models import utc_iso_str_to_datetime
+
+MONDAY_1PM = utc_iso_str_to_datetime("2024-01-15T13:00:00Z")
+FRIDAY_3PM = utc_iso_str_to_datetime("2024-01-19T15:00:00Z")
+FRIDAY_6_45PM = utc_iso_str_to_datetime("2024-01-19T18:45:00Z")
+FRIDAY_7PM = utc_iso_str_to_datetime("2024-01-19T19:00:00Z")
 
 
 @pytest.mark.parametrize(
@@ -18,7 +19,9 @@ FRIDAY_7PM = datetime.fromisoformat("2024-01-19T19:00:00Z")
         (5001, 1100),
     ],
 )
-def test_calculates_delivery_distance_fee(delivery_distance: int, expected_fee: int):
+def test_calculates_delivery_distance_fee(
+    delivery_distance: int, expected_fee: int
+):
     delivery_fee = calculate_delivery_fee(
         cart_value=1000,
         delivery_distance=delivery_distance,
