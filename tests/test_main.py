@@ -8,7 +8,7 @@ client = TestClient(app)
 MONDAY_1PM = "2024-01-15T13:00:00Z"
 
 
-def test_accepts_valid_inputs():
+def test_it_accepts_valid_inputs():
     response = client.post(
         "/calculate_delivery_fee",
         json={
@@ -34,7 +34,7 @@ def test_accepts_valid_inputs():
     ],
     ids=lambda _description: _description,
 )
-def test_rejects_invalid_integer_input(
+def test_it_rejects_invalid_integer_input(
     _description: str,
     cart_value: int,
     delivery_distance: int,
@@ -66,7 +66,7 @@ def test_rejects_invalid_integer_input(
         ("Invalid second", "2024-01-15T13:00:60Z"),
     ],
 )
-def test_rejects_invalid_time_input(_description: str, time: str):
+def test_it_rejects_invalid_time_input(_description: str, time: str):
     response = client.post(
         "/calculate_delivery_fee",
         json={
@@ -79,7 +79,7 @@ def test_rejects_invalid_time_input(_description: str, time: str):
     assert response.status_code == 422
 
 
-def test_calculates_delivery_fee():
+def test_it_calculates_delivery_fee():
     response = client.post(
         "/calculate_delivery_fee",
         json={
