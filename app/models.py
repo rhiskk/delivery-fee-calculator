@@ -29,8 +29,7 @@ class DeliveryFeeRequest(BaseModel):
         ...,
         ge=0,
         description=(
-            "The distance between the store and "
-            "customer's location in meters."
+            "The distance between the store and customer's location in meters."
         ),
     )
     number_of_items: StrictInt = Field(
@@ -44,14 +43,12 @@ class DeliveryFeeRequest(BaseModel):
     )
 
     @field_validator("time")
-    def validate_time(cls, value: str):
+    def validate_time(cls, value: str) -> str:  # noqa: N805
         try:
             utc_iso_str_to_datetime(value)
         except ValueError as err:
-            raise ValueError(
-                "time must be a date in UTC in ISO format"
-                "(YYYY-MM-DDTHH:MM:SSZ)"
-            ) from err
+            msg = "time must be a date in UTC in ISO format(YYYY-MM-DDTHH:MM:SSZ)"
+            raise ValueError(msg) from err
         return value
 
     # Example values for OpenAPI documentation

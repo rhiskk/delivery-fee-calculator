@@ -1,19 +1,30 @@
-[tool.ruff]
-line-length = 79
+[tool.black]
+target-version = ["py312"]
+include = '\.pyi?$'
 
-[tool.ruff.lint]
-select = [
-    # pycodestyle
-    "E",
-    # Pyflakes
-    "F",
-    # pyupgrade
-    "UP",
-    # flake8-bugbear
-    "B",
-    # flake8-simplify
-    "SIM",
-    # isort
-    "I",
-]
-extend-select = ["E501"]
+[tool.mypy]
+disallow_any_unimported = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+strict_equality = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+check_untyped_defs = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = ['tests.*']
+disallow_untyped_defs = false
+strict_equality = false
+
+[tool.ruff]
+select = ["ALL"]
+ignore = [
+    "D",
+    "COM812",
+    "ANN",
+    "S101",
+    ]
+line-length = 88
+target-version = "py312"

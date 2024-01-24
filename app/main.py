@@ -11,7 +11,9 @@ app = FastAPI(title="Delivery Fee Calculator API", version="1.0.0")
 
 
 @app.post("/calculate_delivery_fee", response_model=DeliveryFeeResponse)
-def calculate_delivery_fee_route(request: DeliveryFeeRequest):
+def calculate_delivery_fee_route(
+    request: DeliveryFeeRequest,
+) -> DeliveryFeeResponse:
     delivery_fee = calculate_delivery_fee(
         request.cart_value,
         request.delivery_distance,

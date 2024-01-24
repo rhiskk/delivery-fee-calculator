@@ -10,7 +10,7 @@ FRIDAY_7PM = utc_iso_str_to_datetime("2024-01-19T19:00:00Z")
 
 
 @pytest.mark.parametrize(
-    "delivery_distance, expected_fee",
+    ("delivery_distance", "expected_fee"),
     [
         (1000, 200),
         (1499, 300),
@@ -36,11 +36,12 @@ def test_it_adds_small_order_surcharge():
         number_of_items=4,
         time=MONDAY_1PM,
     )
-    assert delivery_fee == 310
+    base_plus_small_order_surcharge = 310
+    assert delivery_fee == base_plus_small_order_surcharge
 
 
 @pytest.mark.parametrize(
-    "number_of_items, expected_fee",
+    ("number_of_items", "expected_fee"),
     [(4, 200), (5, 250), (6, 300), (10, 500), (13, 770)],
 )
 def test_it_adds_item_amount_surcharge(number_of_items: int, expected_fee: int):
@@ -60,7 +61,8 @@ def test_it_doen_not_exceed_maximum_fee():
         number_of_items=20,
         time=MONDAY_1PM,
     )
-    assert delivery_fee == 1500
+    maximum_fee = 1500
+    assert delivery_fee == maximum_fee
 
 
 def test_it_gives_free_delivery_for_orders_over_200_e():
@@ -70,34 +72,38 @@ def test_it_gives_free_delivery_for_orders_over_200_e():
         number_of_items=20,
         time=MONDAY_1PM,
     )
-    assert delivery_fee == 0
+    free = 0
+    assert delivery_fee == free
 
 
-def test_it_adds_friday_rush_multiplier_3PM():
+def test_it_adds_friday_rush_multiplier_3pm():
     delivery_fee = calculate_delivery_fee(
         cart_value=1000,
         delivery_distance=1,
         number_of_items=1,
         time=FRIDAY_3PM,
     )
-    assert delivery_fee == 240
+    base_with_rush_multiplier = 240
+    assert delivery_fee == base_with_rush_multiplier
 
 
-def test_it_adds_friday_rush_multiplier_6_45PM():
+def test_it_adds_friday_rush_multiplier_6_45pm():
     delivery_fee = calculate_delivery_fee(
         cart_value=1000,
         delivery_distance=1,
         number_of_items=1,
         time=FRIDAY_6_45PM,
     )
-    assert delivery_fee == 240
+    base_with_rush_multiplier = 240
+    assert delivery_fee == base_with_rush_multiplier
 
 
-def test_it_does_not_add_friday_rush_multiplier_7PM():
+def test_it_does_not_add_friday_rush_multiplier_7pm():
     delivery_fee = calculate_delivery_fee(
         cart_value=1000,
         delivery_distance=1,
         number_of_items=1,
         time=FRIDAY_7PM,
     )
-    assert delivery_fee == 200
+    base_fee = 200
+    assert delivery_fee == base_fee

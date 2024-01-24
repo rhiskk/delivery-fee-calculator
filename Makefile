@@ -49,6 +49,11 @@ test-coverage: docker-up-d
 	$(DOCKER_EXEC) pytest --cov=app --cov-report=term-missing --cov-report=html
 
 
+.PHONY: format
+format: docker-up-d
+	${DOCKER_EXEC} black .
+
+
 .PHONY: lint
 lint: docker-up-d
 	${DOCKER_EXEC} ruff check app

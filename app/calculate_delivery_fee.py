@@ -30,7 +30,7 @@ def calculate_delivery_fee(
 
     Parameters:
     cart_value (int): Value of the shopping cart in cents.
-    delivery_distance (int): The distance between the store and customer’s
+    delivery_distance (int): The distance between the store and customer's
     location in meters.
     number_of_items (int): The number of items in the customer's shopping cart.
     time (datetime): Order time in UTC.
@@ -58,9 +58,7 @@ def _get_distance_fee(distance: int) -> int:
     base_fee = BASE_FEE
     additional_distance = distance - BASE_DISTANCE
     if additional_distance > 0:
-        base_fee += (
-            ceil(additional_distance / DISTANCE_UNIT) * ADDITIONAL_DISTANCE_FEE
-        )
+        base_fee += ceil(additional_distance / DISTANCE_UNIT) * ADDITIONAL_DISTANCE_FEE
     return base_fee
 
 
@@ -69,16 +67,11 @@ def _get_small_order_surcharge(cart_value: int) -> int:
 
 
 def _get_item_surcharge(number_of_items: int) -> int:
-    surcharge = (
-        max(0, number_of_items - ITEM_SURCHARGE_THRESHOLD) * ITEM_SURCHARGE
-    )
+    surcharge = max(0, number_of_items - ITEM_SURCHARGE_THRESHOLD) * ITEM_SURCHARGE
     if number_of_items > BULK_THRESHOLD:
         surcharge += BULK_FEE
     return surcharge
 
 
 def _is_friday_rush(time: datetime) -> bool:
-    return (
-        time.weekday() == FRIDAY
-        and FRIDAY_RUSH_START <= time.hour < FRIDAY_RUSH_END
-    )
+    return time.weekday() == FRIDAY and FRIDAY_RUSH_START <= time.hour < FRIDAY_RUSH_END
