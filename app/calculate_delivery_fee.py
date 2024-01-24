@@ -1,5 +1,5 @@
 from calendar import FRIDAY
-from datetime import datetime
+from datetime import datetime, time
 from math import ceil
 
 BASE_DISTANCE = 1000
@@ -13,8 +13,8 @@ BULK_THRESHOLD = 12
 BULK_FEE = 120
 MAXIMUM_FEE = 1500
 FREE_DELIVERY_THRESHOLD = 20000
-FRIDAY_RUSH_START = 15
-FRIDAY_RUSH_END = 19
+FRIDAY_RUSH_START = time(15)
+FRIDAY_RUSH_END = time(19)
 FRIDAY_RUSH_MULTIPLIER = 1.2
 
 
@@ -74,4 +74,6 @@ def _get_item_surcharge(number_of_items: int) -> int:
 
 
 def _is_friday_rush(time: datetime) -> bool:
-    return time.weekday() == FRIDAY and FRIDAY_RUSH_START <= time.hour < FRIDAY_RUSH_END
+    return (
+        time.weekday() == FRIDAY and FRIDAY_RUSH_START <= time.time() <= FRIDAY_RUSH_END
+    )
