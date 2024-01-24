@@ -18,7 +18,7 @@ $(INIT_VENV): requirements.txt dev-requirements.txt
 DOCKER_BUILD := tmp/docker_build_stamp
 .PHONY: docker-build
 docker-build: $(DOCKER_BUILD)
-$(DOCKER_BUILD): Dockerfile
+$(DOCKER_BUILD): Dockerfile requirements.txt dev-requirements.txt
 	docker-compose build delivery-fee-calculator-api
 	mkdir -p tmp
 	touch $@
