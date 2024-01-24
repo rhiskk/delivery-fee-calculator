@@ -57,12 +57,12 @@ format: docker-up-d
 
 .PHONY: lint
 lint: docker-up-d
-	${DOCKER_EXEC} ruff check app
+	${DOCKER_EXEC} ruff check .
 
 
 .PHONY: lint-fix
 lint-fix: docker-up-d
-	${DOCKER_EXEC} ruff check app --fix
+	${DOCKER_EXEC} ruff check . --fix
 
 
 .PHONY: type-check
@@ -81,13 +81,16 @@ docker-down:
 	docker compose down
 
 
-.PHONY: docker-clean
-docker-clean: docker-down
+.PHONY: clean-docker
+clean-docker: docker-down
 	-docker image rm $(SERVICE_NAME)
 	rm -rf $(DOCKER_BUILD)
 
+
 .PHONY: clean-all
-clean-all: docker-clean
+clean-all: clean-docker
 	rm -rf $(VENV_DIR)
 	rm -rf tmp
 	rm -rf htmlcov
+	rm -rf app/__pycache__
+	rm -rf tests/__pycache__

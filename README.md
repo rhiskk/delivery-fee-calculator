@@ -42,6 +42,6 @@ Otherwise, you can open [`http://localhost:8000/docs`](http://localhost:8000/doc
 
 When you are done using the application, you should clean up the Docker environment:
 
-- Run `make docker-clean` to remove the Docker image for the delivery fee calculator API.
+- Run `make clean-docker` to remove the Docker image for the delivery fee calculator API.
 
 - Run `make clean-all` to remove the Docker image, the virtual environment and the generated coverage report.
