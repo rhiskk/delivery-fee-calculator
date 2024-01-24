@@ -2,36 +2,37 @@ PYTHON := python3.12
 VENV_DIR := .venv
 VENV_PYTHON := $(VENV_DIR)/bin/python
 
-DOCKER_EXEC = docker compose exec delivery-fee-calculator-api
+SERVICE_NAME := delivery-fee-calculator-api
+DOCKER_EXEC = docker compose exec $(SERVICE_NAME)
 
 INIT_VENV := $(VENV_DIR)/init_venv_stamp
 .PHONY: init-venv
 init-venv: $(INIT_VENV)
-$(INIT_VENV): requirements.txt dev-requirements.txt
+$(INIT_VENV): requirements.txt requirements-dev.txt
 		$(PYTHON) -m venv $(VENV_DIR)
 		$(VENV_PYTHON) -m pip install --upgrade pip
 		$(VENV_PYTHON) -m pip install -r requirements.txt
-		$(VENV_PYTHON) -m pip install -r dev-requirements.txt
+		$(VENV_PYTHON) -m pip install -r requirements-dev.txt
 		touch $@
 
 
 DOCKER_BUILD := tmp/docker_build_stamp
 .PHONY: docker-build
 docker-build: $(DOCKER_BUILD)
-$(DOCKER_BUILD): Dockerfile requirements.txt dev-requirements.txt
-	docker-compose build delivery-fee-calculator-api
+$(DOCKER_BUILD): Dockerfile requirements.txt requirements-dev.txt
+	docker-compose build $(SERVICE_NAME)
 	mkdir -p tmp
 	touch $@
 
 
-.PHONY: run-dev
-run-dev: docker-build
-	docker compose up delivery-fee-calculator-api
-
-
 .PHONY: docker-up-d
 docker-up-d: docker-build
-	docker compose up -d
+	docker compose up $(SERVICE_NAME) -d
+
+
+.PHONY: run-dev
+run-dev: docker-up-d
+	docker compose logs -f $(SERVICE_NAME)
 
 
 .PHONY: test
@@ -82,4 +83,11 @@ docker-down:
 
 .PHONY: docker-clean
 docker-clean: docker-down
-	docker image rm delivery-fee-calculator-api
+	-docker image rm $(SERVICE_NAME)
+	rm -rf $(DOCKER_BUILD)
+
+.PHONY: clean-all
+clean-all: docker-clean
+	rm -rf $(VENV_DIR)
+	rm -rf tmp
+	rm -rf htmlcov
