@@ -1,6 +1,6 @@
+import math
 from calendar import FRIDAY
 from datetime import datetime, time
-from math import ceil
 
 BASE_DISTANCE = 1000
 BASE_FEE = 200
@@ -56,9 +56,11 @@ def _is_eligible_for_free_delivery(cart_value: int) -> bool:
 
 def _get_distance_fee(distance: int) -> int:
     base_fee = BASE_FEE
-    additional_distance = distance - BASE_DISTANCE
-    if additional_distance > 0:
-        base_fee += ceil(additional_distance / DISTANCE_UNIT) * ADDITIONAL_DISTANCE_FEE
+    if distance > BASE_DISTANCE:
+        additional_distance = distance - BASE_DISTANCE
+        base_fee += (
+            math.ceil(additional_distance / DISTANCE_UNIT) * ADDITIONAL_DISTANCE_FEE
+        )
     return base_fee
 
 
