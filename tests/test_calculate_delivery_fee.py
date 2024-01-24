@@ -1,7 +1,7 @@
 import pytest
 
 from app.calculate_delivery_fee import calculate_delivery_fee
-from app.models import utc_iso_str_to_datetime
+from app.utils import utc_iso_str_to_datetime
 
 MONDAY_1PM = utc_iso_str_to_datetime("2024-01-15T13:00:00Z")
 FRIDAY_3PM = utc_iso_str_to_datetime("2024-01-19T15:00:00Z")

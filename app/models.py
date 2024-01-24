@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -8,9 +6,7 @@ from pydantic import (
     field_validator,
 )
 
-
-def utc_iso_str_to_datetime(value: str) -> datetime:
-    return datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ")
+from app.utils import utc_iso_str_to_datetime
 
 
 class DeliveryFeeRequest(BaseModel):

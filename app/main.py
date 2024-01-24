@@ -4,8 +4,8 @@ from app.calculate_delivery_fee import calculate_delivery_fee
 from app.models import (
     DeliveryFeeRequest,
     DeliveryFeeResponse,
-    utc_iso_str_to_datetime,
 )
+from app.utils import utc_iso_str_to_datetime
 
 app = FastAPI(title="Delivery Fee Calculator API", version="1.0.0")
 
