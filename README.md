@@ -19,6 +19,8 @@ The following make targets use `docker-compose` to run the application and comma
 
 - Run `make run-dev` to start the application in development mode.
 
+The API will be available at [`http://localhost:8000/calculate_delivery_fee`](http://localhost:8000/calculate_delivery_fee).
+
 ## Running the Tests
 
 - Run `make test` to run the tests.
@@ -34,9 +36,9 @@ The following make targets use `docker-compose` to run the application and comma
 
 ## OpenAPI Documentation
 
-On macOS and Linux you can run `make docs` to open the openAPI documentation in your web browser.
+- Run `make docs` to open the openAPI documentation in your web browser (macOS and Linux only).
 
-Otherwise, you can open [`http://localhost:8000/docs`](http://localhost:8000/docs) in your web browser while the app is running.
+If you are using Windows, you can open [`http://localhost:8000/docs`](http://localhost:8000/docs) in your web browser while the app is running.
 
 ## Cleaning Up
 
