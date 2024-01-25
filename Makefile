@@ -78,7 +78,7 @@ docs: docker-up-d
 
 .PHONY: docker-down
 docker-down:
-	docker compose down
+	- docker compose down
 
 
 .PHONY: clean-docker
