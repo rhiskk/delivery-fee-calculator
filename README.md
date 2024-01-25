@@ -5,11 +5,12 @@
 - Make
 - Docker
 - Docker Compose
-- Python 3.12 (for intellisense)
+- Python 3 (for intellisense)
 
 ### IntelliSense
 
 Run `make init-venv` to create a virtual environment and install the necessary Python packages. This step is for IntelliSense features in your IDE. This is not required to run or test the application.
+The command assumes that you have Python3.12 installed on your machine. If you have a different version of Python installed you can run `make init-venv PYTHON=python3.X` to use another version of Python.
 
 ---
 
@@ -46,4 +47,4 @@ When you are done using the application, you should clean up the Docker environm
 
 - Run `make clean-docker` to remove the Docker image for the delivery fee calculator API.
 
-- Run `make clean-all` to remove the Docker image, the virtual environment and the generated coverage report.
+- Run `make clean-all` to remove the Docker image, the virtual environment, the generated coverage report and pycache files.
