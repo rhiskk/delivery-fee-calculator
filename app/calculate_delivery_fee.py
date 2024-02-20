@@ -13,8 +13,8 @@ BULK_THRESHOLD = 12
 BULK_FEE = 120
 MAXIMUM_FEE = 1500
 FREE_DELIVERY_THRESHOLD = 20000
-FRIDAY_RUSH_START = time(15)
-FRIDAY_RUSH_END = time(19)
+FRIDAY_RUSH_START = 15
+FRIDAY_RUSH_END = 19
 FRIDAY_RUSH_MULTIPLIER = 1.2
 
 
@@ -55,13 +55,15 @@ def _is_eligible_for_free_delivery(cart_value: int) -> bool:
 
 
 def _get_distance_fee(distance: int) -> int:
-    base_fee = BASE_FEE
+    distance_fee = BASE_FEE
+
     if distance > BASE_DISTANCE:
         additional_distance = distance - BASE_DISTANCE
-        base_fee += (
+        distance_fee += (
             math.ceil(additional_distance / DISTANCE_UNIT) * ADDITIONAL_DISTANCE_FEE
         )
-    return base_fee
+
+    return distance_fee
 
 
 def _get_small_order_surcharge(cart_value: int) -> int:
@@ -75,7 +77,10 @@ def _get_item_surcharge(number_of_items: int) -> int:
     return surcharge
 
 
-def _is_friday_rush(time: datetime) -> bool:
+def _is_friday_rush(order_time: datetime) -> bool:
+    friday_rush_start_time = time(FRIDAY_RUSH_START)
+    friday_rush_end_time = time(FRIDAY_RUSH_END)
     return (
-        time.weekday() == FRIDAY and FRIDAY_RUSH_START <= time.time() <= FRIDAY_RUSH_END
+        order_time.weekday() == FRIDAY
+        and friday_rush_start_time <= order_time.time() <= friday_rush_end_time
     )
